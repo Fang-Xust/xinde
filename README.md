@@ -49,3 +49,55 @@ getch函数常用于程序调试中,在调试时,在关键位置显示有关的�
 
 //看《C陷阱与缺陷》  《高质量C++C编程》
 //看《程序员的自我修养》第一章  第二章  第三章  第六章  第十章
+
+
+
+二分法查找算法：
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<stdlib.h>
+
+int BinarySearch(int arr[],int k,int left,int right)
+{
+	//int mid=left+(right-left)/2;            //这一行必须放在循环里面，否则while()就成死循环了
+	while (left <= right)
+	{
+		int mid = left + (right - left) / 2;
+		if (arr[mid] > k)
+		{
+			right = mid - 1;
+		}
+		else if (arr[mid] < k)
+		{
+			left = mid + 1;
+		}
+		else
+		{ 
+			//printf("找到了，下标是：%d\n", mid);
+			return mid;
+		}
+	}
+	return -1;
+}
+
+int main()
+{
+	int ret;
+	int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+	int left = 0;
+	int right = sizeof(arr) / sizeof(arr[0]) - 1;
+	ret=BinarySearch(arr,7,left,right);
+	if (-1 == ret)
+	{
+		printf("找不到\n");
+	}
+	else
+	{
+		printf("找到了，下标是：%d\n", ret);
+	}
+	system("pause"); 
+	return 0;
+} 
+
+
+二分法递归查询：
