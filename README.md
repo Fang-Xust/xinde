@@ -52,12 +52,12 @@ getch函数常用于程序调试中,在调试时,在关键位置显示有关的�
 
 
 
-二分法查找算法：
+二分法查找算法（递归和非递归）：
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<stdlib.h>
 
-int BinarySearch(int arr[],int k,int left,int right)
+int BinarySearch(int arr[],int k,int left,int right)      //非递归实现
 {
 	//int mid=left+(right-left)/2;            //这一行必须放在循环里面，否则while()就成死循环了
 	while (left <= right)
@@ -80,6 +80,28 @@ int BinarySearch(int arr[],int k,int left,int right)
 	return -1;
 }
 
+
+int BinarySearch(int arr[], int k, int left, int right)       //递归实现
+{
+	if (left > right)
+	{
+		return -1;
+	}
+	else
+	{                                                   //一定注意↓↓↓
+		int mid = left + (right - left) / 2;             //这一行必须放在循环里面，否则while()就成死循环了
+		if (arr[mid] > k)
+		{
+			BinarySearch(arr, k, left, mid - 1);
+		}
+		else if (arr[mid] < k)
+		{
+			BinarySearch(arr, k, mid + 1, right);
+		}
+	}
+}
+
+
 int main()
 {
 	int ret;
@@ -98,6 +120,3 @@ int main()
 	system("pause"); 
 	return 0;
 } 
-
-
-二分法递归查询：
